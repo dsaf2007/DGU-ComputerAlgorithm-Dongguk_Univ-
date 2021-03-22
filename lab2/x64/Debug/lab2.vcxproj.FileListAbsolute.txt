@@ -1,0 +1,2 @@
+S:\repos\algorithm\lab2\x64\Debug\lab2.exe
+S:\repos\algorithm\lab2\x64\Debug\lab2.pdb
