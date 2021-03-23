@@ -1,23 +1,27 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <Windows.h>
 
 
 void swap(int &a, int &b);
 
 void BubbleSort(int arr[],int size);
-
 void RecBubbleSort(int arr[], int size);
 
 void QuickSort(int arr[], int left,int right);
-
+int Partition(int arr[], int left, int right);
 void RecQuickSort(int arr[], int left, int right);
+
+void SelectionSort(int arr[], int size);
+void RecSelectionSort(int arr[], int size);
 
 int* CreateArr(int size);
 
 
 int main()
 {
+	clock_t start, end;
 	int arr_size;
 	std::cout << "Enter array size : ";
 	std::cin >> arr_size;
@@ -27,7 +31,9 @@ int main()
 		std::cout << array[i] << " ";
 	}
 	std::cout << "\n";
-	RecQuickSort(array,0, arr_size-1);
+	start = clock();
+	RecSelectionSort(array, arr_size);
+	end = clock();
 	for (int i = 0; i < arr_size; i++)
 	{
 		std::cout << array[i] << " ";
@@ -149,4 +155,31 @@ void RecQuickSort(int arr[], int left, int right)
 	}
 	RecQuickSort(arr, left, j - 1);
 	RecQuickSort(arr, j + 1, right);
+}
+
+void SelectionSort(int arr[], int size)
+{
+	int min_index;
+	for (int i = 0; i < size - 1; i++)
+	{
+		min_index = i;
+		for (int j = i + 1; j < size; j++)
+		{
+			if (arr[min_index] > arr[j])
+				min_index = j;
+		}
+		swap(arr[min_index], arr[i]);
+	}
+}
+
+void RecSelectionSort(int arr[], int size)
+{
+	if (size == 1)return;
+	int max = 0;
+	for (int i = 1; i < size; i++)
+	{
+		if (arr[max] < arr[i])max = i;
+	}
+	swap(arr[max], arr[size - 1]);
+	RecSelectionSort(arr, size - 1);
 }
