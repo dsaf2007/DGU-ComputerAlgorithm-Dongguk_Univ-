@@ -9,6 +9,10 @@ void BubbleSort(int arr[],int size);
 
 void RecBubbleSort(int arr[], int size);
 
+void QuickSort(int arr[], int left,int right);
+
+void RecQuickSort(int arr[], int left, int right);
+
 int* CreateArr(int size);
 
 
@@ -23,7 +27,7 @@ int main()
 		std::cout << array[i] << " ";
 	}
 	std::cout << "\n";
-	BubbleSort(array, arr_size);
+	RecQuickSort(array,0, arr_size-1);
 	for (int i = 0; i < arr_size; i++)
 	{
 		std::cout << array[i] << " ";
@@ -76,4 +80,73 @@ void RecBubbleSort(int arr[], int size)
 	}
 
 	RecBubbleSort(arr, size - 1);
+}
+
+int Partition(int arr[], int left, int right)
+{
+	int pivot = arr[right];
+	int i = left - 1;
+	for (int j = left; j < right; j++)
+	{
+		if (pivot > arr[j])
+		{
+			i++;
+			swap(arr[i], arr[j]);
+		}
+	}
+	swap(arr[i + 1], arr[right]);
+	return(i + 1);
+}
+
+void QuickSort(int arr[], int left,int right)
+{
+	int stack[10000];
+	int top = -1;
+	stack[++top] = left;
+	stack[++top] = right;
+	while (top >= 0)
+	{
+		int top_right = stack[top--];
+		int top_left = stack[top--];
+		int p = Partition(arr, top_left, top_right);
+		if (p - 1 > top_left)
+		{
+			stack[++top] = top_left;
+			stack[++top] = p - 1;
+		}
+		if (p + 1 < top_right)
+		{
+			stack[++top] = p + 1;
+			stack[++top] = top_right;
+		}
+	}
+}
+
+void RecQuickSort(int arr[], int left, int right)
+{
+	if (left >= right)//원소가 한개일때
+	{
+		return;
+	}
+
+	int pivot = left;
+	int i = pivot + 1;
+	int j = right;
+
+	while (i <= j)
+	{//포인터가 겹칠 때 까지
+		while (i <= right && arr[i] <= arr[pivot])i++;
+		while (j > left && arr[j] >= arr[pivot])j--;
+
+		if (i > j)
+		{
+			swap(arr[j], arr[pivot]);
+		}
+		else
+		{
+			swap(arr[i], arr[j]);
+		}
+	}
+	RecQuickSort(arr, left, j - 1);
+	RecQuickSort(arr, j + 1, right);
 }
