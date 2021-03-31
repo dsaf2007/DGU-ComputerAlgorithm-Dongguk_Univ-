@@ -61,7 +61,7 @@ public:
 	{
 		return (size == 0);
 	}
-
+private:
 	int maxSize, size;
 	int* element;
 };
