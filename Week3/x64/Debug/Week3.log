@@ -1,0 +1,4 @@
+﻿  main.cpp
+S:\repos\algorithm\Week3\merge.h(10,1): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+S:\repos\algorithm\Week3\main.cpp(36,6): warning C4101: 'in' :참조되지 않은 지역 변수입니다.
+  Week3.vcxproj -> S:\repos\algorithm\Week3\x64\Debug\Week3.exe
