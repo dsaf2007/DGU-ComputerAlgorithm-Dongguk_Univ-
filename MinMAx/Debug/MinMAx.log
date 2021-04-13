@@ -1,1 +1,5 @@
-﻿  MinMAx.vcxproj -> S:\repos\algorithm\MinMAx\Debug\MinMAx.exe
+﻿  main.cpp
+S:\repos\algorithm\MinMAx\main.cpp(6,6): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
+S:\repos\algorithm\MinMAx\main.cpp(18,6): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
+S:\repos\algorithm\MinMAx\main.cpp(61,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  MinMAx.vcxproj -> S:\repos\algorithm\MinMAx\Debug\MinMAx.exe
