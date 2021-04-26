@@ -1,0 +1,2 @@
+S:\repos\algorithm\새 폴더\Week6\Debug\Week6.exe
+S:\repos\algorithm\새 폴더\Week6\Debug\Week6.pdb

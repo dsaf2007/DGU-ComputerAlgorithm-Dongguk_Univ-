@@ -1,0 +1,5 @@
+﻿  bstree.cpp
+  main.cpp
+S:\repos\algorithm\새 폴더\Week6\main.cpp(29,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+  코드를 생성하고 있습니다...
+  Week6.vcxproj -> S:\repos\algorithm\새 폴더\Week6\Debug\Week6.exe
