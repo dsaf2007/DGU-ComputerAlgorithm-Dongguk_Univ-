@@ -1,0 +1,3 @@
+7183번째 위치에서 GGAGGCGGGCGCAAA발견
+
+총 1개의 pattern 일치

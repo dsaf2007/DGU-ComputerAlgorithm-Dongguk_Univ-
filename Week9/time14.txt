@@ -1,0 +1,2 @@
+bruteForce 소요시간 : 0 microseconds
+RabinKarp 소요시간 : 74700 microseconds

@@ -1,0 +1,7 @@
+2723301번째 위치에서 GCTGGCTGAC발견
+5169830번째 위치에서 GCTGGCTGAC발견
+5508886번째 위치에서 GCTGGCTGAC발견
+7327849번째 위치에서 GCTGGCTGAC발견
+7636324번째 위치에서 GCTGGCTGAC발견
+
+총 5개의 pattern 일치

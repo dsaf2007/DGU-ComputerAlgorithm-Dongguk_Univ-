@@ -1,0 +1,3 @@
+8213번째 위치에서 CCATTGAAGCCTGTAACCTCAGTGAAGATC발견
+
+총 1개의 pattern 일치

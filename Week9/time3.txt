@@ -1,0 +1,3 @@
+bruteForce 소요시간 : 6416 microseconds
+RabinKarp 소요시간 : 8013 microseconds
+Kmp 소요시간 : 5674 microseconds

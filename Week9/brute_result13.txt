@@ -1,0 +1,3 @@
+9239번째 위치에서 GGGCCTGAAATGCGATGGCGGAGCCTAGCG발견
+
+총 1개의 pattern 일치
