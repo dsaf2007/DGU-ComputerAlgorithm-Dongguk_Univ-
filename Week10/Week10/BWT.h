@@ -12,5 +12,5 @@ public:
 	void init();	
 private:
 	std::string pattern_str;
-	std::vector<std::vector<std::string>> rest;
+	std::vector<std::string> rest;
 };

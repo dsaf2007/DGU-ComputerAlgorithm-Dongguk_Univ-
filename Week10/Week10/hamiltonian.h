@@ -5,7 +5,6 @@
 #include <vector>
 
 
-// 해밀턴 패스 수행할 클래스
 class hamiltonian
 {
 public:

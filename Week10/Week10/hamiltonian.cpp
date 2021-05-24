@@ -6,11 +6,9 @@ hamiltonian::hamiltonian(std::string input[], int arrsize)//constructor
 {
 
 	arr_size = arrsize;
-	//sequence = new std::string[arr_size];
-	std::vector<std::string> sequence(arr_size);
+	sequence = new std::string[arr_size];
 	str_size = input[0].length();
 	adj_matrix = new int* [arr_size];
-	std::vector<std::vector<int>> adj_matrix
 	path_vertex = new int[arr_size];
 
 	std::cout << "string size = " << str_size << std::endl;
@@ -173,9 +171,9 @@ void hamiltonian::hamilton_rec()
 		// 경로를 찾았을 경우
 		if (hamilton_sub(1) == true)
 		{
-			string answer = sequence[j];
-			cout << "Path Found!! " << endl;
-			cout << j << " ";
+			std::string answer = sequence[j];
+			std::cout << "Path Found!! " << std::endl;
+			std::cout << j << " ";
 			for (int i = 1; i < arr_size; i++)
 			{
 				std::cout << path_vertex[i] << " ";

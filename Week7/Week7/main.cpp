@@ -1,3 +1,4 @@
+//2016112154 Á¤µ¿±¸
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -12,30 +13,31 @@ int main()
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<int> dis(0, 9);
-	/*std::ofstream writeFile("text_1.txt");
-	for (int i = 0; i < 10000; i++)
+	std::ofstream writeFile("text_4.txt");
+	for (int i = 0; i < 10000000; i++)
 	{
 		writeFile << dis(gen);
-	}*/
+	}
 	
-	std::ifstream readFile("text_1.txt");
+	std::ifstream readFile("text_4.txt");
 	std::string plain_text;
 	std::getline(readFile, plain_text);
 
 	std::string pattern = "";
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		pattern += std::to_string(dis(gen));
 	}
-	bruteForce(plain_text, "57147");
+	bruteForce(plain_text, pattern);
 }
 
 
 void bruteForce(std::string text, std::string pattern_)
 {
-	std::ofstream writeFile("result.txt");
+	std::ofstream writeFile("result5_4.txt");
 	int num = 0;
+	writeFile << "pattern : " << pattern_<<"\n";
 	for (int i = 0; i < text.length(); i++)
 	{
 		for (int j = 0; j < pattern_.length(); j++)
