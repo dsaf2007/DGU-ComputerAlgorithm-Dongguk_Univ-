@@ -1,7 +1,9 @@
+//2016112154 Á¤µ¿±¸
 #include <iostream>
 #include <vector>
 #include <cstdlib>
 #include "hamiltonian.h"
+#include "BWT.h"
 
 
 int main()
@@ -61,4 +63,13 @@ int main()
 	delete hamilton_03;
 	delete hamilton_04;
 	delete hamilton_05;
+
+	BWT bwt("mississippi");
+	bwt.init();
+	bwt.sortRest();
+	bwt.getResult();
+	BWT bwt2("chungdonggu");
+	bwt2.init();
+	bwt2.sortRest();
+	bwt2.getResult();
 }
