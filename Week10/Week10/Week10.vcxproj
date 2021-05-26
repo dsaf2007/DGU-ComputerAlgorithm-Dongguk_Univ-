@@ -139,11 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ACTG.cpp" />
     <ClCompile Include="BWT.cpp" />
     <ClCompile Include="hamiltonian.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ACTG.h" />
     <ClInclude Include="BWT.h" />
     <ClInclude Include="hamiltonian.h" />
   </ItemGroup>
