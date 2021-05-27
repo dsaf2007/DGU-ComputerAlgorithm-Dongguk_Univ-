@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include "hamiltonian.h"
 #include "BWT.h"
+#include "ACTG.h"
 
 
 int main()
@@ -21,7 +22,7 @@ int main()
 	hamiltonian* hamilton_01 = new hamiltonian(seq_01, size);
 
 	hamilton_01->make_adj_matrix();
-	hamilton_01->show_matrix();
+	//hamilton_01->show_matrix();
 	hamilton_01->hamilton_rec();
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +30,7 @@ int main()
 	hamiltonian* hamilton_02 = new hamiltonian(seq_02, size);
 
 	hamilton_02->make_adj_matrix();
-	hamilton_02->show_matrix();
+	//hamilton_02->show_matrix();
 	hamilton_02->hamilton_rec();
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -38,7 +39,7 @@ int main()
 
 
 	hamilton_03->make_adj_matrix();
-	hamilton_03->show_matrix();
+	//hamilton_03->show_matrix();
 	hamilton_03->hamilton_rec();
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -46,7 +47,7 @@ int main()
 	hamiltonian* hamilton_04 = new hamiltonian(seq_04, size);
 
 	hamilton_04->make_adj_matrix();
-	hamilton_04->show_matrix();
+	//hamilton_04->show_matrix();
 	hamilton_04->hamilton_rec();
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -54,7 +55,7 @@ int main()
 	hamiltonian* hamilton_05 = new hamiltonian(seq_05, size);
 
 	hamilton_05->make_adj_matrix();
-	hamilton_05->show_matrix();
+	//hamilton_05->show_matrix();
 	hamilton_05->hamilton_rec();
 
 
@@ -63,13 +64,18 @@ int main()
 	delete hamilton_03;
 	delete hamilton_04;
 	delete hamilton_05;
-
+	std::cout << "======================\n";
 	BWT bwt("mississippi");
 	bwt.init();
 	bwt.sortRest();
-	bwt.getResult();
+	bwt.decode();
+	std::cout << "======================\n";
 	BWT bwt2("chungdonggu");
 	bwt2.init();
 	bwt2.sortRest();
-	bwt2.getResult();
+	bwt2.decode();
+
+
+	ACTG test(30, 40000);
+	test.init();
 }

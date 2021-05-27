@@ -12,9 +12,14 @@ public:
 
 	void init();
 	void sortRest();
-	void getResult();
+	//void getResult();
+	void decode();
 private:
 	std::string pattern_str="$";
 	std::vector<std::string> rest;
 	std::string result_str="";
+	std::string first = "";
+	std::string last = "";
+	std::vector<std::pair<char, int>> first_tuples;
+	std::vector<std::pair<char, int>> last_tuples;
 };
