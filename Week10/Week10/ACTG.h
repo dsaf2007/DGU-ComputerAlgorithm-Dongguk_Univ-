@@ -1,7 +1,7 @@
 #include <iostream>
 #include <random>
 #include <ctime>
-
+#include <fstream>
 
 class ACTG
 {
@@ -12,10 +12,13 @@ public:
 	void init();
 	char random();
 	void restore();
+	void compare();
+	void makeText();
 
 private:
 	std::string ref_DNA_seq;
 	std::string my_DNA_seq;
+	std::string restore_seq;
 	std::string actg = "ACTG";
 	int k;
 	int n;

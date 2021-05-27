@@ -36,7 +36,7 @@ void ACTG::init()
 		if (short_read.size() == n)
 			break;
 	}
-	std::cout << short_read.size();
+	
 }
 
 char ACTG::random()
@@ -51,5 +51,56 @@ char ACTG::random()
 
 void ACTG::restore()
 {
+	restore_seq = ref_DNA_seq;
+	int mismatch;
+	for (int i = 0; i < short_read.size(); i++)
+	{
+		for (int j = 0; j < 1000000; j++)
+		{
+			mismatch = 0;
+			for (int x = 0; x < k; x++)
+			{
+				if (short_read[i][x] != ref_DNA_seq[j + x])
+					mismatch++;
+				if (mismatch >= 2)
+					break;
+				if ((x == k - 1) && mismatch < 2)
+				{
+					for (int y = 0; y < k; y++)
+					{
+						restore_seq[j + y] = short_read[i][y];
+					}
+				}
+			}
+		}
+	}
+}
 
+void ACTG::compare()
+{
+	int miss = 0;
+	for (int i = 0; i < 1000000; i++)
+	{
+		if (restore_seq[i] != my_DNA_seq[i])
+		{
+			miss++;
+		}
+		
+	}
+	std::cout << "일치율 : " << ((double)(1000000-miss) / (double)1000000) * 100 << "%\n";
+	std::cout << "불일치 문자 개수 : " << miss << std::endl;
+}
+
+
+void ACTG::makeText()
+{
+	std::ofstream writeShortRead("short_read.txt");
+	std::ofstream myDNA("my_DNA.txt");
+	std::ofstream restore("restore_seq.txt");
+	for (int i = 0; i < short_read.size(); i++)
+	{
+		writeShortRead << short_read[i];
+	}
+	myDNA << my_DNA_seq;
+	restore << restore_seq;
 }

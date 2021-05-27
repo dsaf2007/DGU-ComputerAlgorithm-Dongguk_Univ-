@@ -75,7 +75,18 @@ int main()
 	bwt2.sortRest();
 	bwt2.decode();
 
+	time_t start, end;
 
 	ACTG test(30, 40000);
+	
 	test.init();
+
+	start = time(NULL);
+	test.restore();
+	end = time(NULL);
+	std::cout << "걸린시간 :" << (double)(end - start) << std::endl;
+	test.makeText();
+	test.compare();
+
+	
 }
