@@ -14,6 +14,7 @@ public:
 	void restore();
 	void compare();
 	void makeText();
+	void printSizeInfo();
 
 private:
 	std::string ref_DNA_seq;

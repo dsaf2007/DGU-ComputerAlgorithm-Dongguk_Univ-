@@ -1,7 +1,7 @@
 #include "ACTG.h"
 
 
-ACTG::ACTG(int k_,int n_)
+ACTG::ACTG(int k_,int n_)//积己磊
 {
 	n = n_;
 	k = k_;
@@ -14,7 +14,7 @@ ACTG::ACTG(int k_,int n_)
 
 ACTG::~ACTG(){}
 
-void ACTG::init()
+void ACTG::init()//short read甫 积己茄促.
 {
 	for (int i = 0; i < my_DNA_seq.length(); i += k)
 	{
@@ -103,4 +103,9 @@ void ACTG::makeText()
 	}
 	myDNA << my_DNA_seq;
 	restore << restore_seq;
+}
+
+void ACTG::printSizeInfo()
+{
+	std::cout << "number of short read : " << n << std::endl << "length of short read : " << k << std::endl;
 }

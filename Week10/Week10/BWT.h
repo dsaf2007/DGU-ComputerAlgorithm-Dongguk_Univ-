@@ -12,7 +12,6 @@ public:
 
 	void init();
 	void sortRest();
-	//void getResult();
 	void decode();
 private:
 	std::string pattern_str="$";
