@@ -99,7 +99,7 @@ void ACTG::makeText()
 	std::ofstream restore("restore_seq.txt");
 	for (int i = 0; i < short_read.size(); i++)
 	{
-		writeShortRead << short_read[i];
+		writeShortRead << short_read[i]<<"\n";
 	}
 	myDNA << my_DNA_seq;
 	restore << restore_seq;
