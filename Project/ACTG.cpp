@@ -2,11 +2,12 @@
 #include "ACTG.h"
 #include "BoyerMoor.h"
 
-ACTG::ACTG(int k_,int n_)//생성자
+ACTG::ACTG(int k_,int m_)//생성자
 {
-	n = n_;
+	M = m_;
 	k = k_;
-	for (int i = 0; i < 1000000; i++)
+	N = 100000000;
+	for (int i = 0; i < N; i++)
 	{
 		ref_DNA_seq += random();
 	}
@@ -34,7 +35,7 @@ void ACTG::init()//short read를 생성한다.
 			read_str += my_DNA_seq[i + j];
 		}
 		short_read.push_back(read_str);
-		if (short_read.size() == n)
+		if (short_read.size() == M)
 			break;
 	}
 	
@@ -56,7 +57,7 @@ void ACTG::restore()
 	int mismatch;
 	for (int i = 0; i < short_read.size(); i++)
 	{
-		for (int j = 0; j < 1000000; j++)
+		for (int j = 0; j < N; j++)
 		{
 			mismatch = 0;
 			for (int x = 0; x < k; x++)
@@ -97,10 +98,10 @@ void ACTG::BMRestore()
 	}
 }
 
-void ACTG::compare()
+void ACTG::compare(double time)
 {
 	int miss = 0;
-	for (int i = 0; i < 1000000; i++)
+	for (int i = 0; i < N; i++)
 	{
 		if (restore_seq[i] != my_DNA_seq[i])
 		{
@@ -108,8 +109,10 @@ void ACTG::compare()
 		}
 		
 	}
-	std::cout << "일치율 : " << ((double)(1000000-miss) / (double)1000000) * 100 << "%\n";
-	std::cout << "불일치 문자 개수 : " << miss << std::endl;
+	std::ofstream writeResult("result.txt");
+	writeResult << "소요 시간 : " << time;
+	writeResult << "일치율 : " << ((double)(N -miss) / (double)N) * 100 << "%\n";
+	writeResult << "불일치 문자 개수 : " << miss << std::endl;
 }
 
 
@@ -128,5 +131,5 @@ void ACTG::makeText()
 
 void ACTG::printSizeInfo()
 {
-	std::cout << "number of short read : " << n << std::endl << "length of short read : " << k << std::endl;
+	std::cout << "number of short read : " << M << std::endl << "length of short read : " << k << std::endl;
 }

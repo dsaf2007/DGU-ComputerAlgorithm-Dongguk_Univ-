@@ -12,7 +12,7 @@ public:
 	void init();
 	char random();
 	void restore();
-	void compare();
+	void compare(double time);
 	void makeText();
 	void printSizeInfo();
 	void BMRestore();
@@ -23,6 +23,7 @@ private:
 	std::string restore_seq;
 	std::string actg = "ACTG";
 	int k;
-	int n;
+	int M;
+	int N;
 	std::vector<std::string> short_read;
 };

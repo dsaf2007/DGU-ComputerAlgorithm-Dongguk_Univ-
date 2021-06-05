@@ -11,7 +11,7 @@ int main()
 
 	time_t start, end;
 
-	ACTG test(30, 40000);
+	ACTG test(32, 2000000);
 	test.printSizeInfo();
 	test.init();
 
@@ -19,7 +19,7 @@ int main()
 	test.BMRestore();
 	end = time(NULL);
 	std::cout << "걸린시간 :" << (double)(end - start) << std::endl;
-	test.compare();
+	test.compare((double)(end - start));
 	test.makeText();
 
 
