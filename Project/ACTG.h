@@ -15,7 +15,8 @@ public:
 	void compare(double time);
 	void makeText();
 	void printSizeInfo();
-	void BMRestore();
+	void BMRestore(int x);
+	void execute();
 
 private:
 	std::string ref_DNA_seq;

@@ -11,12 +11,12 @@ int main()
 
 	time_t start, end;
 
-	ACTG test(32, 2000000);
+	ACTG test(30, 40000);
 	test.printSizeInfo();
 	test.init();
 
 	start = time(NULL);
-	test.BMRestore();
+	test.execute();
 	end = time(NULL);
 	std::cout << "걸린시간 :" << (double)(end - start) << std::endl;
 	test.compare((double)(end - start));
