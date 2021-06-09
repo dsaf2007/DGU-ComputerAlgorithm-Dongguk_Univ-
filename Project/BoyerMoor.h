@@ -3,17 +3,7 @@
 #include <vector>
 const int MAX_INT = 256;
 
-//std::vector<int> makeBad_table(std::string pattern_str)
-//{
-//	int pattern_size = pattern_str.size();
-//	std::vector<int> bad(MAX_INT, pattern_size);
-//
-//	for (int i = 0; i < pattern_size; i++)
-//	{
-//		bad[(int)pattern_str[i]] = i;
-//	}
-//	return bad;
-//}
+
 int toInt(char a)
 {
 
@@ -48,8 +38,8 @@ std::vector<int> makeGoddsuffix_table(std::string pattern_str)
 {
 	int pattern_size = pattern_str.size();
 
-	int pattern_pt = pattern_size; // 패턴 포인터
-	int suffix_pt = pattern_pt + 1;
+	int pattern_pt = pattern_size; // pattern point
+	int suffix_pt = pattern_pt + 1; // suffix point
 	
 	std::vector<int> suffix_table(pattern_size + 1, 0);
 	suffix_table[pattern_pt] = suffix_pt;
@@ -94,24 +84,28 @@ int search(std::vector<int> bad_table, std::vector<int> good_suffix_table, std::
 	while (begin <= plain_size - pattern_size)
 	{
 		int match = pattern_size;
+		int first = pattern_size;
 		int miss_match = 0;
+		
 		while(match >0 && miss_match <5)
 		{
-			if (match > 0 && pattern_str[match - 1] == plain_text[begin + (match - 1)])
-				--match;
-			else
+			if (pattern_str[match - 1] != plain_text[begin + (match - 1)])
 				miss_match++;
+			/*if (miss_match == 1)
+				first = match;*/
+			match--;
+			
 
 		}
 			if (match == 0)
 				return begin;
-			if (bad_table[toInt(plain_text[begin + match])] != pattern_size)
+			if (bad_table[toInt(plain_text[begin + first])] != pattern_size)
 			{
-				begin += std::max(match - bad_table[toInt(plain_text[begin + match])], good_suffix_table[match]);
+				begin += std::max(first - bad_table[toInt(plain_text[begin + first])], good_suffix_table[first]);
 			}
 			else
 			{
-				begin += std::max(good_suffix_table[match], match);
+				begin += std::max(good_suffix_table[first], first);
 			}
 	}
 	return -1;

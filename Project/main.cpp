@@ -3,23 +3,26 @@
 #include <vector>
 #include <cstdlib>
 #include "ACTG.h"
-
+#include <thread>
 
 int main()
 {
 	
 
-	time_t start, end;
-
-	ACTG test(30, 40000);
+	time_t startx, endx;
+	startx = time(NULL);
+	ACTG test(50, 100000);
 	test.printSizeInfo();
-	test.init();
+	test.exec_initMyDNA();
+	test.makeShortread();
 
-	start = time(NULL);
 	test.execute();
-	end = time(NULL);
-	std::cout << "걸린시간 :" << (double)(end - start) << std::endl;
-	test.compare((double)(end - start));
+	//test.BMRestore(0);
+	//test.restore();
+	std::cout << "걸린시간 :" << test.elapse_time << std::endl;
+	test.compare(0);
+	endx = time(NULL);
+	std::cout << "총 걸린 시간 : " << (double)(endx - startx) << "\n";
 	test.makeText();
 
 
