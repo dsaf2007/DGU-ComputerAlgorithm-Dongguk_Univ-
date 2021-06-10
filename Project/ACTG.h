@@ -11,7 +11,7 @@
 class ACTG
 {
 public:
-	ACTG(int k_,int n_);
+	ACTG(std::string my, std::string ref, std::vector<std::string> short_read_,std::string path_);
 	~ACTG();
 
 	void initMyDNA(int x);
@@ -19,13 +19,15 @@ public:
 	void makeShortread();
 	void exec_makeShortread();
 	char random();
-	void restore();
+	void restore(int x);
 	void compare(int x);
 	void makeText();
 	void printSizeInfo();
 	void BMRestore(int x);
 	void execute();
+	void execute_triv();
 	void exec_compare();
+	void getShortRead(std::string path);
 	time_t start, end;
 	double elapse_time;
 	int miss;
@@ -34,7 +36,8 @@ private:
 	std::string my_DNA_seq;
 	std::string restore_seq;
 	std::string actg = "ACTG";
-	int k;
+	std::string path;
+	int L;
 	int M;
 	int N;
 	std::vector<std::string> short_read;

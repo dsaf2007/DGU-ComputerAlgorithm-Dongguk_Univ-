@@ -3,22 +3,30 @@
 #include "BoyerMoor.h"
 #include <time.h>
 
-ACTG::ACTG(int k_,int m_)//생성자
+ACTG::ACTG(std::string my, std::string ref,std::vector<std::string> short_read_,std::string path_)//생성자
 {
-	M = m_;
-	k = k_;
-	N = 1000000;
+	my_DNA_seq = my;
+	ref_DNA_seq = ref;
+	short_read.resize(short_read_.size());
+	std::copy(short_read_.begin(), short_read_.end(), short_read.begin());
+	//short_read = short_read_;
+	path = path_;
+
+	N = my_DNA_seq.length();
+	L = short_read[0].length();
+	M = short_read.size();
+	
 	miss = 0;
 	for (int i = 0; i < N; i++)
 	{
-		ref_DNA_seq += random();
+		/*ref_DNA_seq += random();
 		if (ref_DNA_seq[i - 1] == ref_DNA_seq[i] && ref_DNA_seq[i - 2] == ref_DNA_seq[i])
 		{
 			ref_DNA_seq[i] = random();
-		}
+		}*/
 		restore_seq += " ";
 	}
-	my_DNA_seq = ref_DNA_seq;
+	//my_DNA_seq = ref_DNA_seq;
 	//restore_seq = ref_DNA_seq;
 }
 
@@ -26,10 +34,10 @@ ACTG::~ACTG(){}
 
 void ACTG::initMyDNA(int x)//short read를 생성한다.
 {
-	for (int i = (x)*(my_DNA_seq.length()/20); i < ((x+1) * (my_DNA_seq.length() / 20))-k; i += k)
+	for (int i = (x)*(my_DNA_seq.length()/20); i < ((x+1) * (my_DNA_seq.length() / 20))-L; i += L)
 	{
-		my_DNA_seq[i + rand() % k] = random();
-		my_DNA_seq[i + rand() % k] = random();
+		my_DNA_seq[i + rand() % L] = random();
+		my_DNA_seq[i + rand() % L] = random();
 	}
 	
 }
@@ -50,13 +58,13 @@ void ACTG::makeShortread()
 {
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> dis(0, my_DNA_seq.length() - k - 1);
+	std::uniform_int_distribution<int> dis(0, my_DNA_seq.length() - L - 1);
 	std::mutex g_lock;
 
 	for (int i = dis(gen); i < my_DNA_seq.length(); i = dis(gen))
 	{
 		std::string read_str = "";
-		for (int j = 0; j < k; j++)
+		for (int j = 0; j < L; j++)
 		{
 			read_str += my_DNA_seq[i + j];
 		}
@@ -88,25 +96,37 @@ char ACTG::random()
 	return actg[dis(gen)];
 }
 
-
-void ACTG::restore()
+void ACTG::getShortRead(std::string path)
 {
+	std::ifstream readFile(path);
+	std::string temp = "";
+	while (std::getline(readFile, temp))
+	{
+		short_read.push_back(temp);
+	}
 
+	std::cout << short_read.size() << std::endl;
+}
+
+
+void ACTG::restore(int x)
+{
 	int mismatch;
-	for (int i = 0; i < short_read.size(); i++)
+	//for (int i = 0; i < short_read.size(); i++)
+	for (int i = (x) * (M / 20); i < (x + 1) * (M / 20); i++)
 	{
 		for (int j = 0; j < N; j++)
 		{
 			mismatch = 0;
-			for (int x = 0; x < k; x++)
+			for (int x = 0; x < L; x++)
 			{
 				if (short_read[i][x] != ref_DNA_seq[j + x])
 					mismatch++;
 				if (mismatch >= 4)
 					break;
-				if ((x == k - 1) && mismatch < 4)
+				if ((x == L - 1) && mismatch < 4)
 				{
-					for (int y = 0; y < k; y++)
+					for (int y = 0; y < L; y++)
 					{
 						restore_seq[j + y] = short_read[i][y];
 					}
@@ -114,6 +134,21 @@ void ACTG::restore()
 			}
 		}
 	}
+}
+
+void ACTG::execute_triv()
+{
+	std::cout << short_read.size() << std::endl;
+	start = time(NULL);
+	for (int i = 0; i < 20; i++)
+	{
+		threads.emplace_back(std::thread(&ACTG::restore, this, i));
+	}
+	for (auto& thread : threads)
+		thread.join();
+	end = time(NULL);
+
+	elapse_time = (double)(end - start);
 }
 
 void ACTG::BMRestore(int x)
@@ -152,8 +187,6 @@ void ACTG::execute()
 	end = time(NULL);
 
 	elapse_time = (double)(end - start);
-
-
 }
 
 void ACTG::compare(int x)
@@ -186,23 +219,23 @@ void ACTG::exec_compare()
 void ACTG::makeText()
 {
 
-	std::ofstream writeResult("result.txt");
-	writeResult << "N :" << N << ",M : " << M << ",K : " << k <<", d: 4"<<"\n";
+	std::ofstream writeResult(path+"result.txt");
+	writeResult << "N :" << N << ",M : " << M << ",K : " << L <<", d: 4"<<"\n";
 	writeResult << "소요 시간 : " << elapse_time<<"\n";
 	writeResult << "일치율 : " << ((double)((N - miss) / (double)N)) * 100 << "%\n";
 	writeResult << "불일치 문자 개수 : " << miss << std::endl;
-	std::ofstream writeShortRead("short_read.txt");
-	std::ofstream myDNA("my_DNA.txt");
-	std::ofstream restore("restore_seq.txt");
-	for (int i = 0; i < short_read.size(); i++)
+	//std::ofstream writeShortRead("short_read.txt");
+	//std::ofstream myDNA("my_DNA.txt");
+	std::ofstream restore(path+"restore_seq.txt");
+	/*for (int i = 0; i < short_read.size(); i++)
 	{
 		writeShortRead << short_read[i]<<"\n";
 	}
-	myDNA << my_DNA_seq;
+	myDNA << my_DNA_seq;*/
 	restore << restore_seq;
 }
 
 void ACTG::printSizeInfo()
 {
-	std::cout << "number of short read : " << M << std::endl << "length of short read : " << k << std::endl;
+	std::cout << "number of short read : " << M << std::endl << "length of short read : " << L << std::endl;
 }
