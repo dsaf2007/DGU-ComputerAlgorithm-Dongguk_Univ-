@@ -9,7 +9,6 @@ ACTG::ACTG(std::string my, std::string ref,std::vector<std::string> short_read_,
 	ref_DNA_seq = ref;
 	short_read.resize(short_read_.size());
 	std::copy(short_read_.begin(), short_read_.end(), short_read.begin());
-	//short_read = short_read_;
 	path = path_;
 
 	N = my_DNA_seq.length();
@@ -19,30 +18,23 @@ ACTG::ACTG(std::string my, std::string ref,std::vector<std::string> short_read_,
 	miss = 0;
 	for (int i = 0; i < N; i++)
 	{
-		/*ref_DNA_seq += random();
-		if (ref_DNA_seq[i - 1] == ref_DNA_seq[i] && ref_DNA_seq[i - 2] == ref_DNA_seq[i])
-		{
-			ref_DNA_seq[i] = random();
-		}*/
 		restore_seq += " ";
 	}
-	//my_DNA_seq = ref_DNA_seq;
-	//restore_seq = ref_DNA_seq;
+
 }
 
 ACTG::~ACTG(){}
 
-void ACTG::initMyDNA(int x)//short read를 생성한다.
+void ACTG::initMyDNA(int x)//read 길이 마다 0~2개 만큼의 문자 변경
 {
 	for (int i = (x)*(my_DNA_seq.length()/20); i < ((x+1) * (my_DNA_seq.length() / 20))-L; i += L)
 	{
 		my_DNA_seq[i + rand() % L] = random();
 		my_DNA_seq[i + rand() % L] = random();
-	}
-	
+	}	
 }
 
-void ACTG::exec_initMyDNA()
+void ACTG::exec_initMyDNA()//멀티스레딩
 {
 	std::vector<std::thread> My;
 
@@ -54,7 +46,7 @@ void ACTG::exec_initMyDNA()
 		init.join();
 }
 
-void ACTG::makeShortread()
+void ACTG::makeShortread()//short read 생성
 {
 	std::random_device rd;
 	std::mt19937 gen(rd());
@@ -74,19 +66,6 @@ void ACTG::makeShortread()
 	}
 }
 
-//void ACTG::exec_makeShortread()
-//{
-//	std::vector<std::thread> read;
-//
-//	for (int i = 0; i < 20; i++)
-//	{
-//		read.emplace_back(std::thread(&ACTG::makeShortread, this));
-//	}
-//	for (auto& shortread : read)
-//		shortread.join();
-//}
-
-
 char ACTG::random()
 {
 	std::random_device rd;
@@ -96,23 +75,10 @@ char ACTG::random()
 	return actg[dis(gen)];
 }
 
-void ACTG::getShortRead(std::string path)
-{
-	std::ifstream readFile(path);
-	std::string temp = "";
-	while (std::getline(readFile, temp))
-	{
-		short_read.push_back(temp);
-	}
 
-	std::cout << short_read.size() << std::endl;
-}
-
-
-void ACTG::restore(int x)
+void ACTG::restore(int x)//DNA restore with trivial method
 {
 	int mismatch;
-	//for (int i = 0; i < short_read.size(); i++)
 	for (int i = (x) * (M / 20); i < (x + 1) * (M / 20); i++)
 	{
 		for (int j = 0; j < N; j++)
@@ -122,7 +88,7 @@ void ACTG::restore(int x)
 			{
 				if (short_read[i][x] != ref_DNA_seq[j + x])
 					mismatch++;
-				if (mismatch >= 4)
+				if (mismatch >= 4)//4개의 missmatch 허용
 					break;
 				if ((x == L - 1) && mismatch < 4)
 				{
@@ -136,7 +102,7 @@ void ACTG::restore(int x)
 	}
 }
 
-void ACTG::execute_triv()
+void ACTG::execute_triv()//trivial method multi threading
 {
 	std::cout << short_read.size() << std::endl;
 	start = time(NULL);
@@ -151,21 +117,15 @@ void ACTG::execute_triv()
 	elapse_time = (double)(end - start);
 }
 
-void ACTG::BMRestore(int x)
+void ACTG::BMRestore(int x)//Boyer-Moor를 이용한 DNA 복원
 {
-	
-
-	int begin = 0;
-//	for (int i = 0; i < short_read.size(); i++)
 	for(int i = (x) * (M / 20); i < (x+1)*(M/20) ; i++)
 	{
-		//std::cout << i << "\n";
 		std::vector<int> bad_table = makeBad_table(short_read[i]);
 		std::vector<int> suffix_table = makeGoddsuffix_table(short_read[i]);
 		int index = search(bad_table, suffix_table, ref_DNA_seq, short_read[i]);
 		if (index > -1)
 		{
-
 			for (int j = 0; j < short_read[i].length(); j++)
 			{
 				restore_seq[index + j] = short_read[i][j];
@@ -174,7 +134,7 @@ void ACTG::BMRestore(int x)
 	}
 }
 
-void ACTG::execute()
+void ACTG::execute()//BMRestore multi threading
 {
 	std::cout << short_read.size() << std::endl;
 	start = time(NULL);
@@ -189,34 +149,30 @@ void ACTG::execute()
 	elapse_time = (double)(end - start);
 }
 
-void ACTG::compare(int x)
+void ACTG::compare(int x)//my dna와 resotre dna 비교
 {
-
 	for (int i = 0; i < N; i++)
 	{
 		if (restore_seq[i] != my_DNA_seq[i])
 		{
 			miss++;
 		}
-		
 	}
-
 }
 
-void ACTG::exec_compare()
-{
-	std::vector<std::thread> comp;
+//void ACTG::exec_compare()//compare 함수 multi threading
+//{
+//	std::vector<std::thread> comp;
+//
+//	for (int i = 0; i < 20; i++)
+//	{
+//		comp.emplace_back(std::thread(&ACTG::compare, this, i));
+//	}
+//	for (auto& compare : comp)
+//		compare.join();
+//}
 
-	for (int i = 0; i < 20; i++)
-	{
-		comp.emplace_back(std::thread(&ACTG::compare, this, i));
-	}
-	for (auto& compare : comp)
-		compare.join();
-}
-
-
-void ACTG::makeText()
+void ACTG::makeText()//결과 텍스트 출력
 {
 
 	std::ofstream writeResult(path+"result.txt");
@@ -224,14 +180,9 @@ void ACTG::makeText()
 	writeResult << "소요 시간 : " << elapse_time<<"\n";
 	writeResult << "일치율 : " << ((double)((N - miss) / (double)N)) * 100 << "%\n";
 	writeResult << "불일치 문자 개수 : " << miss << std::endl;
-	//std::ofstream writeShortRead("short_read.txt");
-	//std::ofstream myDNA("my_DNA.txt");
+
 	std::ofstream restore(path+"restore_seq.txt");
-	/*for (int i = 0; i < short_read.size(); i++)
-	{
-		writeShortRead << short_read[i]<<"\n";
-	}
-	myDNA << my_DNA_seq;*/
+
 	restore << restore_seq;
 }
 

@@ -13,29 +13,27 @@ int main()
 	std::vector<std::string> short_read_;
 	//read refdna
 
-	std::string path = "./test_data_set/1000000/40_35000/";
-	std::ifstream readRef(path+"ref.txt");
+	std::string path = "./test_data_set/1000000/40_35000/";//파일 경로
+	std::ifstream readRef(path+"ref.txt");//파일명
 	std::getline(readRef, refdna);
 	//read mydna
-	std::ifstream readMy(path+"mydna.txt");
+	std::ifstream readMy(path+"mydna.txt");//파일명
 	std::getline(readMy, mydna);
 
-	std::ifstream readShortRead(path+"shortread.txt");
-	while (std::getline(readShortRead, shortread))
+	std::ifstream readShortRead(path+"shortread.txt");//파일명
+	while (std::getline(readShortRead, shortread))//short read vector에 입력받음
 	{
 		short_read_.push_back(shortread);
 	}
-	//std::cout << short_read_[0].length();
+
 	time_t startx, endx;
 	startx = time(NULL);
 	ACTG test(mydna,refdna,short_read_,path);
 	test.printSizeInfo();
-	//test.exec_initMyDNA();
-	//test.makeShortread();
 
-	test.execute_triv();
-	//test.BMRestore(0);
-	//test.restore();
+	test.execute();//Boyer-Moor
+	//test.execute_triv();//trivial method
+
 	std::cout << "걸린시간 :" << test.elapse_time << std::endl;
 	test.compare(0);
 	endx = time(NULL);

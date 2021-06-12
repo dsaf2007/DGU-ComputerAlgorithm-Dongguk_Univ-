@@ -26,8 +26,7 @@ public:
 	void BMRestore(int x);
 	void execute();
 	void execute_triv();
-	void exec_compare();
-	void getShortRead(std::string path);
+	//void exec_compare();
 	time_t start, end;
 	double elapse_time;
 	int miss;
