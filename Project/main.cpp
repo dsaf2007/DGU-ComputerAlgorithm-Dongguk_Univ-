@@ -4,6 +4,9 @@
 #include <cstdlib>
 #include "ACTG.h"
 #include <thread>
+#include <cstdlib>
+#include <string>
+
 
 int main()
 {

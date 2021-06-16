@@ -1,2 +1,0 @@
-S:\repos\algorithm\Week9\Debug\Week9.exe
-S:\repos\algorithm\Week9\Debug\Week9.pdb

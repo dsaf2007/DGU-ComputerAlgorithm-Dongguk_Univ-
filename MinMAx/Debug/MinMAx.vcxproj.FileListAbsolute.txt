@@ -1,2 +1,0 @@
-S:\repos\algorithm\MinMAx\Debug\MinMAx.exe
-S:\repos\algorithm\MinMAx\Debug\MinMAx.pdb

@@ -1,6 +1,0 @@
-﻿  main.cpp
-S:\repos\algorithm\Week9\main.cpp(92,27): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-S:\repos\algorithm\Week9\main.cpp(93,23): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-S:\repos\algorithm\Week9\main.cpp(147,27): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-S:\repos\algorithm\Week9\main.cpp(148,23): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Week9.vcxproj -> S:\repos\algorithm\Week9\x64\Debug\Week9.exe

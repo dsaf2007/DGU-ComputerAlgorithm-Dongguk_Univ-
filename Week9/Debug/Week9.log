@@ -1,4 +1,0 @@
-﻿  main.cpp
-S:\repos\algorithm\Week9\main.cpp(67,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-S:\repos\algorithm\Week9\main.cpp(69,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  Week9.vcxproj -> S:\repos\algorithm\Week9\Debug\Week9.exe
